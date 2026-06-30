@@ -1,16 +1,16 @@
 ---
-title: <repo> — documentation
+title: define-product — documentation
 status: draft
 ---
 
-# <repo> — documentation
+# define-product — documentation
 
 Documentation is organized by **altitude**: product (intent) above design (mechanics).
 
-| Layer                  | Owns                                       | Status |
-| ---------------------- | ------------------------------------------ | ------ |
-| [product/](./product/) | **What & why** — audience-facing intent.   | draft  |
-| [design/](./design/)   | **How** — mechanics, decisions, contracts. | draft  |
+| Layer                  | Owns                                                   | Status |
+| ---------------------- | ------------------------------------------------------ | ------ |
+| [product/](./product/) | **What & why** — PRD and acceptance-criteria contract. | seeded |
+| [design/](./design/)   | **How** — future design placeholder only.              | future |
 
 Suite-level framing (how this repo relates to the other products in the lifecycle) lives at the
 [organization profile](https://github.com/agentic-workflow-kit), not here. This repo stays scoped

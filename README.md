@@ -1,24 +1,12 @@
-<!--
-USING THIS TEMPLATE — delete this block after creating your repo.
-1. Replace every <repo> and one-line-description placeholder (this README, AGENTS.md,
-   docs/*, and the package.json name + description).
-2. Add your archetype's source tier beside docs/ (see the org REPO-STRUCTURE.md):
-   - app / engine: packages/ or src/, tests/, build config, scripts/
-   - skills pack: skills/, methodologies/ (or profiles), evals/, scripts/
-   - docs-only: nothing beyond docs/
-3. Apply the org repo standard (ruleset + merge settings) once the repo exists on GitHub:
-     bash scripts/apply-repo-standard.sh <owner>/<repo>
-4. Delete this comment block. Keep scripts/apply-repo-standard.sh for future re-runs.
--->
+# define-product
 
-# <repo>
-
-> One-line description of what `<repo>` is and where it sits in the agentic-workflow-kit suite
-> spine: `define / PRD -> technical-design -> jig (run) -> learning loop`.
+Product-layer PRD and acceptance-criteria contracts for the agentic-workflow-kit suite.
 
 ## Status
 
-> Early / planned. Describe current maturity here.
+Seeded for M3. This repo currently defines the product-facing contract only: how a PRD records
+outcomes, constraints, assumptions, non-goals, and stable acceptance-criteria IDs. Design mechanics,
+schemas, CLIs, and runtime behavior are future work.
 
 ## Development
 
@@ -33,12 +21,21 @@ pnpm check
 
 - [`docs/product/`](docs/product/) — what & why (audience-facing).
 - [`docs/design/`](docs/design/) — how (mechanics, decisions, contracts).
+- [`docs/product/prd-contract.md`](docs/product/prd-contract.md) — PRD and
+  acceptance-criteria-ID contract.
+- [`docs/product/examples/minimal-prd.md`](docs/product/examples/minimal-prd.md) — minimal PRD
+  fixture.
 
 ## Relationship to the suite
 
-`<repo>` is part of [`agentic-workflow-kit`](https://github.com/agentic-workflow-kit), a polyrepo
-family of standalone, composable products for an agentic software-development lifecycle. Each repo
-is independently useful and composes through shared contracts, not internals.
+`define-product` sits at the head of the suite spine:
+
+```text
+define / PRD -> technical-design -> design -> plan -> jig (run) -> learning loop
+```
+
+Technical Design and Planning may cite PRD and acceptance-criteria IDs from this repo's product
+contract. They must not depend on future Product-layer implementation internals.
 
 ## License
 

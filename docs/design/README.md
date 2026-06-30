@@ -1,10 +1,12 @@
 ---
-title: <repo> — design
-status: draft
+title: define-product — design
+status: future
 ---
 
-# <repo> — design
+# define-product — design
 
-Design owns **how**: architecture, decisions, internal contracts, and formats. It implements and
-verifies the product promises in [`../product/`](../product/) and reconciles to them — where design
-and product intent conflict, name the conflict and resolve it deliberately, not by silent churn.
+Design is future work.
+
+M3 defines only the product-facing PRD and acceptance-criteria-ID contract in
+[`../product/prd-contract.md`](../product/prd-contract.md). This placeholder intentionally does not
+define mechanics, schemas, CLIs, skills, evals, implementation packages, or design-to-plan behavior.
