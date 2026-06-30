@@ -1,7 +1,7 @@
 {
-  "name": "@agentic-workflow-kit/repo-template",
+  "name": "@agentic-workflow-kit/define-product",
   "version": "0.0.0",
-  "description": "Describe this repo. (Rename to @agentic-workflow-kit/<repo> after generating.)",
+  "description": "Product-layer PRD and acceptance-criteria contracts for agentic-workflow-kit.",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.9.0",
