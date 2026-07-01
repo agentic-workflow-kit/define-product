@@ -19,7 +19,9 @@ design reconciles to; where they conflict, name it rather than silently resolvin
 | define-product's own product requirements and acceptance criteria | `docs/product/define-product.md`       |
 | PRD and acceptance-criteria contract (the owned seam)             | `docs/product/prd-contract.md`         |
 | Example product artifact using the contract                       | `docs/product/examples/minimal-prd.md` |
-| Future design status and non-mechanics placeholder                | `docs/design/README.md`                |
+| Design layer overview (how define-product is built)               | `docs/design/README.md`                |
+| The technical design + planner handoff + enforcement gates        | `docs/design/technical-design.md`      |
+| Design decision log (frame-gate approvals + review dispositions)  | `docs/design/decisions.md`             |
 
 ## Gate and conventions
 
