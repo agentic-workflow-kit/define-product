@@ -18,9 +18,12 @@ recording it.
 - Bootstrap + validators: [`../../packages/prd-kit/src/index.mjs`](../../packages/prd-kit/src/index.mjs)
   - `bootstrapTemplate(inputs)` - produce a filled-or-placeholder PRD instance from whatever the
     owner already supplied (Step 4).
-  - `validateSections(markdown)` - required-section presence check (Step 5).
-  - `validateAcIds(markdown)` - AC-ID format, within-document uniqueness, and status vocabulary
-    check (Step 5).
+  - `validatePrdForHandoff(markdown)` - runs the required-section check and the AC-ID
+    format/uniqueness/status/supersession check together; use this, not the two checks below in
+    isolation, to decide whether a draft is finished (Step 5).
+  - `validateSections(markdown)` / `validateAcIds(markdown)` - the individual checks
+    `validatePrdForHandoff` composes; only reach for these directly when you need one result in
+    isolation (e.g. reporting which specific section is missing).
   - `SECTIONS` - per-section guidance, guiding question, and example the templates surface.
 - Worked example: [`../../docs/product/examples/minimal-prd.md`](../../docs/product/examples/minimal-prd.md)
 - This tool's own PRD, useful as a second worked example, not to be edited by this skill:
@@ -92,12 +95,13 @@ actually reviewed as their own.
 ## Step 5 - Assign and validate acceptance-criteria IDs
 
 Assign each criterion a stable ID following `AC-<TOPIC>-<NNN>` (2-8 uppercase letters, zero-padded
-number starting at `001`, unique within the PRD). Then run `validateSections` and `validateAcIds`
-against the draft:
+number starting at `001`, unique within the PRD). Then run `validatePrdForHandoff` against the
+draft - it runs the required-section check and the AC-ID check together, so a PRD missing a whole
+section cannot slip through just because its (nonexistent) AC table has nothing to flag:
 
-- if `validateSections` reports missing sections, or `validateAcIds` reports a malformed, duplicate,
-  or invalid-status ID, **do not emit the PRD as finished** - surface the specific findings and fix
-  them before proceeding (**FAIL-002**);
+- if the result is not `valid`, **do not emit the PRD as finished** - surface the specific findings
+  from `result.errors` (missing sections, malformed/duplicate/invalid-status IDs) and fix them
+  before proceeding (**FAIL-002**);
 - when editing an existing criterion, change the text in place only if the meaning is unchanged; if
   the meaning changes, mint a new ID and mark the old one `Superseded by AC-<new-id>` - never edit a
   cited ID's meaning silently (`INV-001`);

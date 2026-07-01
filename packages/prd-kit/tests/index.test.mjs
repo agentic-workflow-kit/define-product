@@ -5,6 +5,7 @@ import {
   DRAFT_PLACEHOLDER_MARKER,
   validateSections,
   validateAcIds,
+  validatePrdForHandoff,
 } from "../src/index.mjs";
 
 // The public package surface (SURF-002) is this barrel file, not the individual src modules —
@@ -21,5 +22,10 @@ describe("index.mjs public exports", () => {
     // required heading, filled or placeholder, so this passes even with partial input.
     expect(validateSections(doc).valid).toBe(true);
     expect(validateAcIds(doc).valid).toBe(true);
+    // validatePrdForHandoff combines both checks and agrees on this doc — it earns its keep on
+    // the cases in validate-prd-for-handoff.test.mjs where sections and AC-IDs disagree, not here.
+    expect(validatePrdForHandoff(doc).valid).toBe(true);
+    expect(validatePrdForHandoff(doc).sections.valid).toBe(true);
+    expect(validatePrdForHandoff(doc).acIds.valid).toBe(true);
   });
 });

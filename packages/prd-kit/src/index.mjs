@@ -5,3 +5,4 @@ export {
 } from "./bootstrap-template.mjs";
 export { validateSections } from "./validate-sections.mjs";
 export { validateAcIds } from "./validate-ac-ids.mjs";
+export { validatePrdForHandoff } from "./validate-prd-for-handoff.mjs";
