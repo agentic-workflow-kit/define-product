@@ -13,11 +13,7 @@ contract](./prd-contract.md); that contract is the seam define-product produces 
 this PRD designs.
 
 **Product identity.** define-product is an AI-assisted authoring tool that turns a product owner's
-intent into a clear, reviewable PRD. It is meant to be useful two ways: **on its own**, for anyone
-who needs a sharp product definition, and as the **Product layer** of the
-agentic-workflow-kit suite — in both cases producing a PRD that conforms to the
-[acceptance-criteria-ID contract](./prd-contract.md). Its concrete form — a skill, a CLI, a service,
-or an embedded flow — is a design decision, not a product one (see Non-Goals).
+intent into a clear, reviewable PRD. It is meant to be useful two ways: **on its own**, for anyone who needs a sharp product definition, and as the **Product layer** of the agentic-workflow-kit suite — in both cases producing a PRD that conforms to the [acceptance-criteria-ID contract](./prd-contract.md). Its concrete form — a skill, a CLI, a service, or an embedded flow — is a design decision, not a product one (see Non-Goals).
 
 ## Product Outcome
 

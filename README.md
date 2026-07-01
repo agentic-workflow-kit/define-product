@@ -1,7 +1,6 @@
 # define-product
 
-Turn product intent into a clear, reviewable PRD with stable, ID'd acceptance criteria — on its own,
-or as the Product layer of the agentic-workflow-kit suite.
+Turn product intent into a clear, reviewable PRD with stable, ID'd acceptance criteria — usable on its own as an independent tool/skills pack, or as the Product layer of the agentic-workflow-kit suite.
 
 ## Status
 
