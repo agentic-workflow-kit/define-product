@@ -13,12 +13,13 @@ contract's shape is a cross-repo event.
 Altitude: `docs/product/` owns _what & why_; `docs/design/` owns _how_. Product is the contract
 design reconciles to; where they conflict, name it rather than silently resolving.
 
-| Task                                               | Read                                   |
-| -------------------------------------------------- | -------------------------------------- |
-| Product purpose, boundaries, and use cases         | `docs/product/README.md`               |
-| PRD and acceptance-criteria contract               | `docs/product/prd-contract.md`         |
-| Example product artifact using the contract        | `docs/product/examples/minimal-prd.md` |
-| Future design status and non-mechanics placeholder | `docs/design/README.md`                |
+| Task                                                              | Read                                   |
+| ----------------------------------------------------------------- | -------------------------------------- |
+| Product purpose and overview                                      | `docs/product/README.md`               |
+| define-product's own product requirements and acceptance criteria | `docs/product/define-product.md`       |
+| PRD and acceptance-criteria contract (the owned seam)             | `docs/product/prd-contract.md`         |
+| Example product artifact using the contract                       | `docs/product/examples/minimal-prd.md` |
+| Future design status and non-mechanics placeholder                | `docs/design/README.md`                |
 
 ## Gate and conventions
 
