@@ -98,3 +98,33 @@
 - **Consequence:** No change to the design. Tracked in §16 risks.
 - **Design round:** not applied
 - **Status:** rejected
+
+## D-009 - Expand shorthand acceptance-criteria IDs in the handoff
+
+- **Date:** 2026-07-01
+- **Suggestion:** Codex review (agreement-integrity - shorthand `AC-ELICIT-001/002` is not a valid ID under the `AC-<topic>-<number>` contract; literal extraction loses the `-002` IDs)
+- **Decision:** accepted
+- **Rationale:** The Planner Handoff Summary is the citable-ID surface; downstream tooling extracts IDs literally, so each ID must appear in full contract form.
+- **Consequence:** Expanded `AC-ELICIT-001/002` and `AC-PRD-001/002` to their exact IDs in SRC-001 and DEL-002; also expanded the internal `ENF-001/002` shorthand (§14, §16) for the same reason.
+- **Design round:** 4
+- **Status:** applied
+
+## D-010 - Ground FAIL-003 in a repo-verifiable source
+
+- **Date:** 2026-07-01
+- **Suggestion:** Codex review (agreement-integrity - FAIL-003 sourced only to SRC-004, a background/reference-only external skill; not verifiable from the self-contained repo per AGENTS.md)
+- **Decision:** accepted
+- **Rationale:** A required handoff fact must be groundable from checked-out docs. Idempotent resume/extend protects the durable standalone PRD, which is a product promise (AC-PRD-002); the mechanic is productized from the v0.7 flow.
+- **Consequence:** FAIL-003 source ref changed from SRC-004 to SRC-001 (AC-PRD-002), with the v0.7 provenance kept in-cell as SRC-004.
+- **Design round:** 4
+- **Status:** applied
+
+## D-011 - Canonical downstream name (Codex duplicate of D-006)
+
+- **Date:** 2026-07-01
+- **Suggestion:** Codex review (agreement-integrity - `plan-delivery-track` vs canonical `design-to-plan`)
+- **Decision:** accepted
+- **Rationale:** Same finding as D-006, already applied in round 3; the Codex thread is against an earlier head and is now outdated.
+- **Consequence:** No new change; resolved by D-006. Thread resolved with a reply.
+- **Design round:** not applied (resolved by D-006)
+- **Status:** applied

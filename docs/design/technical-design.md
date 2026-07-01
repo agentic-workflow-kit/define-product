@@ -6,7 +6,7 @@ methodology_version: "1"
 architecture_mode: contract/seam design
 design_status: reviewed
 ddd_depth: use-case-slices
-round: 3
+round: 4
 ---
 
 # Technical Design - define-product
@@ -33,41 +33,41 @@ deeper reasoning, but every fact Planning needs is summarized here with a stable
 | Status              | reviewed                         |
 | Architecture mode   | contract/seam design             |
 | Methodology profile | `ddd@1`, `use-case-slices` depth |
-| Review round        | 3                                |
+| Review round        | 4                                |
 
 ### Source and Product References
 
-| ID      | Type     | Reference                                                      | Required for Planning                                                                                                                                                                          | Notes                           |
-| ------- | -------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
-| SRC-001 | prd      | [`../product/define-product.md`](../product/define-product.md) | Product outcome, user job, and acceptance-criteria IDs `AC-ELICIT-001/002`, `AC-GROUND-001`, `AC-PRD-001/002`, `AC-ID-001`, `AC-CHECK-001`, `AC-TEMPLATE-001`, `AC-GUIDE-001`, `AC-SCOPE-001`. | Authoritative product contract. |
-| SRC-002 | source   | [`../product/prd-contract.md`](../product/prd-contract.md)     | The owned outward seam: required PRD sections, AC-ID format, stability/supersession, citation rules. Design produces to it and must not redefine it.                                           | Cross-repo/cross-layer seam.    |
-| SRC-003 | decision | This document, [§2](#2-pre-authoring-approval-record)          | Approved `InputResolution`, `AgreedSystemModel`, and `DocStructurePlan`.                                                                                                                       | Approved at the frame gate.     |
-| SRC-004 | design   | v0.7 `agentic-workflow-kit:define-product` skill               | Prior-art authoring flow productized here. Reference only, not authority; not ported wholesale (SRC-001 constraint).                                                                           | Background.                     |
+| ID      | Type     | Reference                                                      | Required for Planning                                                                                                                                                                                                 | Notes                           |
+| ------- | -------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| SRC-001 | prd      | [`../product/define-product.md`](../product/define-product.md) | Product outcome, user job, and acceptance-criteria IDs `AC-ELICIT-001`, `AC-ELICIT-002`, `AC-GROUND-001`, `AC-PRD-001`, `AC-PRD-002`, `AC-ID-001`, `AC-CHECK-001`, `AC-TEMPLATE-001`, `AC-GUIDE-001`, `AC-SCOPE-001`. | Authoritative product contract. |
+| SRC-002 | source   | [`../product/prd-contract.md`](../product/prd-contract.md)     | The owned outward seam: required PRD sections, AC-ID format, stability/supersession, citation rules. Design produces to it and must not redefine it.                                                                  | Cross-repo/cross-layer seam.    |
+| SRC-003 | decision | This document, [§2](#2-pre-authoring-approval-record)          | Approved `InputResolution`, `AgreedSystemModel`, and `DocStructurePlan`.                                                                                                                                              | Approved at the frame gate.     |
+| SRC-004 | design   | v0.7 `agentic-workflow-kit:define-product` skill               | Prior-art authoring flow productized here. Reference only, not authority; not ported wholesale (SRC-001 constraint).                                                                                                  | Background.                     |
 
 ### Required Planning Facts
 
-| ID       | Category             | Required handoff data                                                                                                                                                                                              | Source refs          |
-| -------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
-| CTX-001  | Context and boundary | The **Authoring Flow** owns the elicit -> ground -> draft -> ID -> self-review -> handoff conversation; reads user-supplied material; does not own the PRD contract (product layer) or downstream layers.          | SRC-001, SRC-002     |
-| CTX-002  | Context and boundary | The **PRD Contract** (`prd-contract.md`) is owned by the product layer. Design and build consume it and produce to it; changing its shape is a cross-repo event, out of this design's scope.                       | SRC-002              |
-| CTX-003  | Context and boundary | Downstream (technical-design, design-to-plan) is reachable only through the published PRD + a next-step recommendation. define-product does not read or call downstream internals.                                 | SRC-001              |
-| INV-001  | Invariant            | Acceptance-criteria IDs are unique within a PRD and never reused after publication; a meaning change mints a new ID and supersedes the old, never an in-place semantic edit. Owner: AC-ID Engine.                  | SRC-002              |
-| INV-002  | Invariant            | A PRD is not "complete" until every required contract section is present. Owner: PRD Artifact / validator.                                                                                                         | SRC-002, SRC-001     |
-| INV-003  | Invariant            | No non-blocking unknown is left silent: each is provided, recorded as a visible assumption, or raised as a blocking question. Owner: Grounding & Assumption Ledger.                                                | SRC-001              |
-| INV-004  | Invariant            | Output stays at product altitude: no architecture, packages, CLI/command behavior, schemas, or execution sequencing. Owner: Altitude Guard.                                                                        | SRC-001              |
-| SURF-001 | API and surface      | Public skill entrypoint: the single invocable `define-product` authoring skill (one skill for now; may extend to a pack later — see §16).                                                                          | SRC-001, SRC-004     |
-| SURF-002 | API and surface      | Package exports: a PRD template set plus a validator API (required-section check, AC-ID format + uniqueness + status/supersession integrity). The checkable core.                                                  | SRC-002              |
-| SURF-003 | API and surface      | Published artifact + handoff: a contract-conformant PRD and a single next-step recommendation. This is the only outward product surface (per SRC-002 citation rules).                                              | SRC-001, SRC-002     |
-| FAIL-001 | Failure              | Insufficient input for a coherent PRD -> stop with blocking questions; do not invent product facts (fail-closed on grounding).                                                                                     | SRC-001              |
-| FAIL-002 | Failure              | Contract validation fails (missing section / malformed or duplicate AC ID) -> surface findings; do not silently emit a non-conformant PRD.                                                                         | SRC-002              |
-| FAIL-003 | Failure              | An existing PRD is present -> resume/extend, filling only missing or thin sections; never clobber without explicit confirmation (idempotency).                                                                     | SRC-004              |
-| OBS-001  | Observability        | The PRD is the durable audit record: assumptions and unresolved gaps are written into the PRD (assumptions / open-questions), so authoring decisions are recognizable without the session.                         | SRC-001 (AC-PRD-002) |
-| ENF-001  | Enforcement          | Static, seeded: AC-ID validator (format + uniqueness + status vocabulary). Seeded violation: a fixture PRD with a duplicate/malformed AC ID must fail.                                                             | SURF-002, SRC-002    |
-| ENF-002  | Enforcement          | Static, seeded: required-section presence check. Seeded violation: a PRD missing "Acceptance Criteria" must fail.                                                                                                  | SURF-002, SRC-002    |
-| ENF-003  | Enforcement          | Manual / eval: altitude discipline (AC-SCOPE-001), blocking-only elicitation (AC-ELICIT-001), and criterion checkability substance (AC-CHECK-001) are judged by review + evals, not static rules.                  | SRC-001              |
-| DEL-001  | Delivery planning    | `packages/prd-kit`: template set + AC-ID validator + required-section checker (the checkable core). Preserves AC-ID-001, AC-PRD-001, AC-TEMPLATE-001.                                                              | SURF-002             |
-| DEL-002  | Delivery planning    | The single `define-product` skill implementing the use-case slices (ingest / elicit / ground / draft / self-review / handoff). Preserves AC-ELICIT-001/002, AC-GROUND-001, AC-PRD-002, AC-GUIDE-001, AC-SCOPE-001. | SURF-001, SURF-003   |
-| DEL-003  | Delivery planning    | `packages/evals`: authoring-quality evals (blocking-only questioning, assumption recording, contract conformance, checkability substance). Preserves AC-ELICIT-001, AC-CHECK-001.                                  | ENF-003              |
+| ID       | Category             | Required handoff data                                                                                                                                                                                                                                 | Source refs          |
+| -------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| CTX-001  | Context and boundary | The **Authoring Flow** owns the elicit -> ground -> draft -> ID -> self-review -> handoff conversation; reads user-supplied material; does not own the PRD contract (product layer) or downstream layers.                                             | SRC-001, SRC-002     |
+| CTX-002  | Context and boundary | The **PRD Contract** (`prd-contract.md`) is owned by the product layer. Design and build consume it and produce to it; changing its shape is a cross-repo event, out of this design's scope.                                                          | SRC-002              |
+| CTX-003  | Context and boundary | Downstream (technical-design, design-to-plan) is reachable only through the published PRD + a next-step recommendation. define-product does not read or call downstream internals.                                                                    | SRC-001              |
+| INV-001  | Invariant            | Acceptance-criteria IDs are unique within a PRD and never reused after publication; a meaning change mints a new ID and supersedes the old, never an in-place semantic edit. Owner: AC-ID Engine.                                                     | SRC-002              |
+| INV-002  | Invariant            | A PRD is not "complete" until every required contract section is present. Owner: PRD Artifact / validator.                                                                                                                                            | SRC-002, SRC-001     |
+| INV-003  | Invariant            | No non-blocking unknown is left silent: each is provided, recorded as a visible assumption, or raised as a blocking question. Owner: Grounding & Assumption Ledger.                                                                                   | SRC-001              |
+| INV-004  | Invariant            | Output stays at product altitude: no architecture, packages, CLI/command behavior, schemas, or execution sequencing. Owner: Altitude Guard.                                                                                                           | SRC-001              |
+| SURF-001 | API and surface      | Public skill entrypoint: the single invocable `define-product` authoring skill (one skill for now; may extend to a pack later — see §16).                                                                                                             | SRC-001, SRC-004     |
+| SURF-002 | API and surface      | Package exports: a PRD template set plus a validator API (required-section check, AC-ID format + uniqueness + status/supersession integrity). The checkable core.                                                                                     | SRC-002              |
+| SURF-003 | API and surface      | Published artifact + handoff: a contract-conformant PRD and a single next-step recommendation. This is the only outward product surface (per SRC-002 citation rules).                                                                                 | SRC-001, SRC-002     |
+| FAIL-001 | Failure              | Insufficient input for a coherent PRD -> stop with blocking questions; do not invent product facts (fail-closed on grounding).                                                                                                                        | SRC-001              |
+| FAIL-002 | Failure              | Contract validation fails (missing section / malformed or duplicate AC ID) -> surface findings; do not silently emit a non-conformant PRD.                                                                                                            | SRC-002              |
+| FAIL-003 | Failure              | An existing PRD is present -> resume/extend, filling only missing or thin sections; never clobber without explicit confirmation (idempotency), preserving the durable standalone PRD (AC-PRD-002); mechanic productized from the v0.7 flow (SRC-004). | SRC-001              |
+| OBS-001  | Observability        | The PRD is the durable audit record: assumptions and unresolved gaps are written into the PRD (assumptions / open-questions), so authoring decisions are recognizable without the session.                                                            | SRC-001 (AC-PRD-002) |
+| ENF-001  | Enforcement          | Static, seeded: AC-ID validator (format + uniqueness + status vocabulary). Seeded violation: a fixture PRD with a duplicate/malformed AC ID must fail.                                                                                                | SURF-002, SRC-002    |
+| ENF-002  | Enforcement          | Static, seeded: required-section presence check. Seeded violation: a PRD missing "Acceptance Criteria" must fail.                                                                                                                                     | SURF-002, SRC-002    |
+| ENF-003  | Enforcement          | Manual / eval: altitude discipline (AC-SCOPE-001), blocking-only elicitation (AC-ELICIT-001), and criterion checkability substance (AC-CHECK-001) are judged by review + evals, not static rules.                                                     | SRC-001              |
+| DEL-001  | Delivery planning    | `packages/prd-kit`: template set + AC-ID validator + required-section checker (the checkable core). Preserves AC-ID-001, AC-PRD-001, AC-TEMPLATE-001.                                                                                                 | SURF-002             |
+| DEL-002  | Delivery planning    | The single `define-product` skill implementing the use-case slices (ingest / elicit / ground / draft / self-review / handoff). Preserves AC-ELICIT-001, AC-ELICIT-002, AC-GROUND-001, AC-PRD-002, AC-GUIDE-001, AC-SCOPE-001.                         | SURF-001, SURF-003   |
+| DEL-003  | Delivery planning    | `packages/evals`: authoring-quality evals (blocking-only questioning, assumption recording, contract conformance, checkability substance). Preserves AC-ELICIT-001, AC-CHECK-001.                                                                     | ENF-003              |
 
 ### Sequencing, Contention, Validation, and Stops
 
@@ -245,12 +245,12 @@ supersession rules, not by an aggregate.
 
 ## 10. Ports, Adapters, and Public API
 
-| Surface                                                 | Type               | Owner                       | Consumers                        | Enforcement                                  |
-| ------------------------------------------------------- | ------------------ | --------------------------- | -------------------------------- | -------------------------------------------- |
-| SURF-001 `define-product` skill entrypoint              | public export      | Authoring Flow              | product owner (interactive)      | eval suite (ENF-003)                         |
-| SURF-002 `packages/prd-kit` (templates + validator API) | public export      | AC-ID Engine / PRD Artifact | the skill; any PRD author        | unit tests + seeded violations (ENF-001/002) |
-| SURF-003 published PRD + next-step recommendation       | published artifact | PRD Artifact                | technical-design, design-to-plan | citation rules in `prd-contract.md`          |
-| upstream ingest (user material)                         | inbound adapter    | Authoring Flow              | (owner intent)                   | manual / eval                                |
+| Surface                                                 | Type               | Owner                       | Consumers                        | Enforcement                                       |
+| ------------------------------------------------------- | ------------------ | --------------------------- | -------------------------------- | ------------------------------------------------- |
+| SURF-001 `define-product` skill entrypoint              | public export      | Authoring Flow              | product owner (interactive)      | eval suite (ENF-003)                              |
+| SURF-002 `packages/prd-kit` (templates + validator API) | public export      | AC-ID Engine / PRD Artifact | the skill; any PRD author        | unit tests + seeded violations (ENF-001, ENF-002) |
+| SURF-003 published PRD + next-step recommendation       | published artifact | PRD Artifact                | technical-design, design-to-plan | citation rules in `prd-contract.md`               |
+| upstream ingest (user material)                         | inbound adapter    | Authoring Flow              | (owner intent)                   | manual / eval                                     |
 
 **Dependency direction:** skill (SURF-001) depends on package (SURF-002); the package depends only on
 conforming to `prd-contract.md` (SRC-002). Nothing here depends on downstream layers — the only
@@ -336,7 +336,7 @@ guaranteeing criterion substance.
   operations — roadmap authoring, delivery-phase / MVP prioritization, and similar — may extend it
   into a pack later; that is out of scope now. The use-case slices in §8 are the grouping, and the
   outward surfaces (§10) hold either way.
-- **Checkability substance is bounded by design.** ENF-001/002 check PRD _shape_ only; criterion
+- **Checkability substance is bounded by design.** ENF-001 and ENF-002 check PRD _shape_ only; criterion
   _substance_ (AC-CHECK-001) is eval/manual — a careless author can still write a criterion that
   passes vacuously. This is an accepted tradeoff carried from the product non-goals.
 - **Package naming (`prd-kit`) is illustrative**, mirroring the sibling `eval-kit`/`evals` shape; the
