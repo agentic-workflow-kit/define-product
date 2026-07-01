@@ -1,0 +1,17 @@
+{
+  "name": "@agentic-workflow-kit/prd-kit",
+  "version": "0.0.0",
+  "description": "Checkable core for define-product: PRD template bootstrap plus the AC-ID and required-section validators.",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.mjs"
+  },
+  "scripts": {
+    "test": "vitest run tests"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  }
+}

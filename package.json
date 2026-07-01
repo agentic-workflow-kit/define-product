@@ -20,10 +20,10 @@
     "dev:setup": "bash scripts/dev-setup.sh",
     "worktree:new": "bash scripts/worktree-new.sh",
     "worktree:clean": "bash scripts/worktree-clean.sh",
-    "format": "prettier --write \"**/*.{md,yml,yaml,json}\"",
-    "format:check": "prettier --check \"**/*.{md,yml,yaml,json}\"",
+    "format": "prettier --write \"**/*.{md,yml,yaml,json,js,mjs}\"",
+    "format:check": "prettier --check \"**/*.{md,yml,yaml,json,js,mjs}\"",
     "lint": "pnpm format:check",
-    "check": "pnpm lint"
+    "check": "pnpm lint && pnpm --filter @agentic-workflow-kit/prd-kit test"
   },
   "devDependencies": {
     "prettier": "^3.6.2"
