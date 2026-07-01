@@ -4,9 +4,9 @@ handoff_contract: technical-design-handoff-v0
 methodology: ddd
 methodology_version: "1"
 architecture_mode: contract/seam design
-design_status: draft
+design_status: reviewed
 ddd_depth: use-case-slices
-round: 2
+round: 3
 ---
 
 # Technical Design - define-product
@@ -30,10 +30,10 @@ deeper reasoning, but every fact Planning needs is summarized here with a stable
 | Design ID           | `define-product-design`          |
 | Handoff contract    | `technical-design-handoff-v0`    |
 | Design title        | define-product                   |
-| Status              | draft                            |
+| Status              | reviewed                         |
 | Architecture mode   | contract/seam design             |
 | Methodology profile | `ddd@1`, `use-case-slices` depth |
-| Review round        | 2                                |
+| Review round        | 3                                |
 
 ### Source and Product References
 
@@ -50,7 +50,7 @@ deeper reasoning, but every fact Planning needs is summarized here with a stable
 | -------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
 | CTX-001  | Context and boundary | The **Authoring Flow** owns the elicit -> ground -> draft -> ID -> self-review -> handoff conversation; reads user-supplied material; does not own the PRD contract (product layer) or downstream layers.          | SRC-001, SRC-002     |
 | CTX-002  | Context and boundary | The **PRD Contract** (`prd-contract.md`) is owned by the product layer. Design and build consume it and produce to it; changing its shape is a cross-repo event, out of this design's scope.                       | SRC-002              |
-| CTX-003  | Context and boundary | Downstream (technical-design, plan-delivery-track) is reachable only through the published PRD + a next-step recommendation. define-product does not read or call downstream internals.                            | SRC-001              |
+| CTX-003  | Context and boundary | Downstream (technical-design, design-to-plan) is reachable only through the published PRD + a next-step recommendation. define-product does not read or call downstream internals.                                 | SRC-001              |
 | INV-001  | Invariant            | Acceptance-criteria IDs are unique within a PRD and never reused after publication; a meaning change mints a new ID and supersedes the old, never an in-place semantic edit. Owner: AC-ID Engine.                  | SRC-002              |
 | INV-002  | Invariant            | A PRD is not "complete" until every required contract section is present. Owner: PRD Artifact / validator.                                                                                                         | SRC-002, SRC-001     |
 | INV-003  | Invariant            | No non-blocking unknown is left silent: each is provided, recorded as a visible assumption, or raised as a blocking question. Owner: Grounding & Assumption Ledger.                                                | SRC-001              |
@@ -190,11 +190,11 @@ supersession rules, not by an aggregate.
 
 ## 6. Context Map
 
-| Context                                            | Owns                                                                 | Reads                      | Does Not Own                                   |
-| -------------------------------------------------- | -------------------------------------------------------------------- | -------------------------- | ---------------------------------------------- |
-| Authoring Flow (the tool)                          | the elicit -> ground -> draft -> ID -> self-review -> handoff slices | user-supplied material     | the PRD contract; the downstream layers        |
-| PRD Contract (`prd-contract.md`)                   | required sections, AC-ID format, stability, citation rules           | (product-layer artifact)   | anything about _how_ define-product runs       |
-| Downstream (technical-design, plan-delivery-track) | reconciling their work to cited AC IDs                               | the published PRD + AC IDs | Product-layer internals; define-product's flow |
+| Context                                       | Owns                                                                 | Reads                      | Does Not Own                                   |
+| --------------------------------------------- | -------------------------------------------------------------------- | -------------------------- | ---------------------------------------------- |
+| Authoring Flow (the tool)                     | the elicit -> ground -> draft -> ID -> self-review -> handoff slices | user-supplied material     | the PRD contract; the downstream layers        |
+| PRD Contract (`prd-contract.md`)              | required sections, AC-ID format, stability, citation rules           | (product-layer artifact)   | anything about _how_ define-product runs       |
+| Downstream (technical-design, design-to-plan) | reconciling their work to cited AC IDs                               | the published PRD + AC IDs | Product-layer internals; define-product's flow |
 
 ### Source-Named Internal Boundaries
 
@@ -245,12 +245,12 @@ supersession rules, not by an aggregate.
 
 ## 10. Ports, Adapters, and Public API
 
-| Surface                                                 | Type               | Owner                       | Consumers                             | Enforcement                                  |
-| ------------------------------------------------------- | ------------------ | --------------------------- | ------------------------------------- | -------------------------------------------- |
-| SURF-001 `define-product` skill entrypoint              | public export      | Authoring Flow              | product owner (interactive)           | eval suite (ENF-003)                         |
-| SURF-002 `packages/prd-kit` (templates + validator API) | public export      | AC-ID Engine / PRD Artifact | the skill; any PRD author             | unit tests + seeded violations (ENF-001/002) |
-| SURF-003 published PRD + next-step recommendation       | published artifact | PRD Artifact                | technical-design, plan-delivery-track | citation rules in `prd-contract.md`          |
-| upstream ingest (user material)                         | inbound adapter    | Authoring Flow              | (owner intent)                        | manual / eval                                |
+| Surface                                                 | Type               | Owner                       | Consumers                        | Enforcement                                  |
+| ------------------------------------------------------- | ------------------ | --------------------------- | -------------------------------- | -------------------------------------------- |
+| SURF-001 `define-product` skill entrypoint              | public export      | Authoring Flow              | product owner (interactive)      | eval suite (ENF-003)                         |
+| SURF-002 `packages/prd-kit` (templates + validator API) | public export      | AC-ID Engine / PRD Artifact | the skill; any PRD author        | unit tests + seeded violations (ENF-001/002) |
+| SURF-003 published PRD + next-step recommendation       | published artifact | PRD Artifact                | technical-design, design-to-plan | citation rules in `prd-contract.md`          |
+| upstream ingest (user material)                         | inbound adapter    | Authoring Flow              | (owner intent)                   | manual / eval                                |
 
 **Dependency direction:** skill (SURF-001) depends on package (SURF-002); the package depends only on
 conforming to `prd-contract.md` (SRC-002). Nothing here depends on downstream layers — the only
@@ -292,7 +292,7 @@ flowchart LR
     prd["PRD Artifact<br/>+ AC-ID Engine"]
     contract["PRD Contract<br/>prd-contract.md (product-owned)"]
     out["Published PRD<br/>+ AC IDs"]
-    down["technical-design /<br/>plan-delivery-track"]
+    down["technical-design /<br/>design-to-plan"]
 
     owner --> flow
     flow --> ledger

@@ -68,3 +68,33 @@
   `README.md`. Round bumped to 2. The use-case slices (§8) and outward surfaces (§10) hold either way.
 - **Design round:** 2
 - **Status:** applied
+
+## D-006 - Normalize downstream naming to design-to-plan
+
+- **Date:** 2026-07-01
+- **Suggestion:** Review (agreement-integrity - legacy skill name `plan-delivery-track` used for the Planning layer)
+- **Decision:** accepted
+- **Rationale:** The suite names the Planning layer `design-to-plan`; `plan-delivery-track` is the legacy v0.7 skill name and muddies the seam in a new design layer.
+- **Consequence:** Replaced `plan-delivery-track` with `design-to-plan` in §1 (CTX-003, SURF-003), §6 context map, and the §13 diagram. SRC-004's reference to the v0.7 `define-product` skill is intentional and unchanged.
+- **Design round:** 3
+- **Status:** applied
+
+## D-007 - Lifecycle status draft -> reviewed
+
+- **Date:** 2026-07-01
+- **Suggestion:** Review (agreement-integrity - `draft` is the wrong planning-eligibility signal once the design is consumed for implementation)
+- **Decision:** accepted
+- **Rationale:** The review is accepted; the handoff contract treats status as planning-eligibility metadata. `reviewed` reflects that the design passed review; `approved` is reserved for explicit post-merge sign-off.
+- **Consequence:** `design_status` and Handoff Identity Status set to `reviewed`; round bumped to 3.
+- **Design round:** 3
+- **Status:** applied
+
+## D-008 - Package naming (prd-kit) left illustrative
+
+- **Date:** 2026-07-01
+- **Suggestion:** Review (non-blocking - package naming)
+- **Decision:** rejected
+- **Rationale:** The reviewer confirmed this is fine; §16 already records that `prd-kit` is illustrative and not a handoff fact, and final naming is a build-time decision.
+- **Consequence:** No change to the design. Tracked in §16 risks.
+- **Design round:** not applied
+- **Status:** rejected
