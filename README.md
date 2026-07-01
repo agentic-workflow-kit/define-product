@@ -1,12 +1,14 @@
 # define-product
 
-Product-layer PRD and acceptance-criteria contracts for the agentic-workflow-kit suite.
+Turn product intent into a clear, reviewable PRD with stable, ID'd acceptance criteria — on its own,
+or as the Product layer of the agentic-workflow-kit suite.
 
 ## Status
 
-Seeded for M3. This repo currently defines the product-facing contract only: how a PRD records
-outcomes, constraints, assumptions, non-goals, and stable acceptance-criteria IDs. Design mechanics,
-schemas, CLIs, and runtime behavior are future work.
+Seeded for M3. The product is now defined for its own design step — see the [product
+overview](docs/product/README.md) and the [define-product PRD](docs/product/define-product.md) — on
+top of the outward PRD / acceptance-criteria-ID contract. Design mechanics, schemas, CLIs, and
+runtime behavior are future work derived from these product docs.
 
 ## Development
 
@@ -19,19 +21,22 @@ pnpm check
 
 ## Documentation
 
-- [`docs/product/`](docs/product/) — what & why (audience-facing).
-- [`docs/design/`](docs/design/) — how (mechanics, decisions, contracts).
-- [`docs/product/prd-contract.md`](docs/product/prd-contract.md) — PRD and
-  acceptance-criteria-ID contract.
+- [`docs/product/`](docs/product/) — what & why (audience-facing); start with the
+  [overview](docs/product/README.md).
+- [`docs/product/define-product.md`](docs/product/define-product.md) — the define-product PRD:
+  requirements and ID'd acceptance criteria.
+- [`docs/product/prd-contract.md`](docs/product/prd-contract.md) — the outward PRD and
+  acceptance-criteria-ID contract other tools cite.
 - [`docs/product/examples/minimal-prd.md`](docs/product/examples/minimal-prd.md) — minimal PRD
   fixture.
+- [`docs/design/`](docs/design/) — how (mechanics, decisions, contracts); future work.
 
 ## Relationship to the suite
 
 `define-product` sits at the head of the suite spine:
 
 ```text
-define / PRD -> technical-design -> design -> plan -> jig (run) -> learning loop
+define-product -> technical-design -> design-to-plan -> jig (run) -> learning loop
 ```
 
 Technical Design and Planning may cite PRD and acceptance-criteria IDs from this repo's product
