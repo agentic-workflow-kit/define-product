@@ -119,7 +119,7 @@ Before handoff:
 Publish the validated PRD and exactly one next-step recommendation from:
 
 - `design-technical-solution` - when the product has meaningful technical complexity;
-- `plan-delivery-track` (design-to-plan) - when the feature is simple enough to plan directly;
+- `design-to-plan` - when the feature is simple enough to plan directly;
 - a UX/content pass or validation/research step - when the PRD's open questions are about users or
   desirability rather than build complexity.
 

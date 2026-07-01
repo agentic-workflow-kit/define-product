@@ -1,7 +1,8 @@
 const AC_ID_PATTERN = /^AC-[A-Z]{2,8}-\d{3}$/;
 const SEPARATOR_ROW_PATTERN = /^:?-+:?$/;
-const STATUS_PATTERN =
-  /^(Active|Withdrawn\b.*|Superseded by AC-[A-Z]{2,8}-\d{3})$/;
+const ACTIVE_PATTERN = /^Active$/;
+const SUPERSEDED_PATTERN = /^Superseded by (AC-[A-Z]{2,8}-\d{3})$/;
+const WITHDRAWN_WITH_REASON_PATTERN = /^Withdrawn\s*[:\-–—]\s*\S.*$/;
 
 function extractAcceptanceCriteriaSection(markdown) {
   const match = markdown.match(/^##\s+Acceptance Criteria\s*$/m);
@@ -34,11 +35,39 @@ function parseTableRows(sectionText) {
   return separatorIndex === -1 ? [] : rows.slice(separatorIndex + 1);
 }
 
-// ENF-001 / INV-001: AC-ID format, within-document uniqueness, and status vocabulary.
-// This only checks the document in front of it — "never reused after publication" is a
-// cross-time property no single-document check can enforce.
+function checkStatus(id, status, presentIds) {
+  if (ACTIVE_PATTERN.test(status)) return null;
+
+  if (status.startsWith("Superseded by")) {
+    const match = status.match(SUPERSEDED_PATTERN);
+    if (!match) return { token: "invalid-status", id, status };
+    const target = match[1];
+    if (target === id) return { token: "self-supersession", id };
+    if (!presentIds.has(target))
+      return { token: "missing-supersession-target", id, target };
+    return null;
+  }
+
+  if (status.startsWith("Withdrawn")) {
+    return WITHDRAWN_WITH_REASON_PATTERN.test(status)
+      ? null
+      : { token: "withdrawn-missing-reason", id };
+  }
+
+  return { token: "invalid-status", id, status };
+}
+
+// ENF-001 / INV-001: AC-ID format, within-document uniqueness, and status/supersession
+// integrity. This only checks the document in front of it — "never reused after publication"
+// is a cross-time property no single-document check can enforce. It also passes vacuously when
+// there is no Acceptance Criteria section, or no parseable table, since zero rows means zero
+// errors — that is a deliberate scope limit (this checks shape, not completeness), not a bug;
+// callers that need "finished PRD is valid" should pair this with validateSections.
 export function validateAcIds(markdown) {
   const rows = parseTableRows(extractAcceptanceCriteriaSection(markdown));
+  // Every ID appearing in the table, valid-format or not — a Superseded-by target must exist
+  // in this PRD, regardless of whether the referencing row itself has other problems.
+  const presentIds = new Set(rows.map(([id]) => id));
   const errors = [];
   const seen = new Map();
 
@@ -53,9 +82,8 @@ export function validateAcIds(markdown) {
     }
     seen.set(id, (seen.get(id) ?? 0) + 1);
 
-    if (!STATUS_PATTERN.test(status)) {
-      errors.push({ token: "invalid-status", id, status });
-    }
+    const statusError = checkStatus(id, status, presentIds);
+    if (statusError) errors.push(statusError);
   }
 
   return { valid: errors.length === 0, errors };
