@@ -5,7 +5,7 @@ export const SECTIONS = [
     key: "productOutcome",
     heading: "Product Outcome",
     guidance:
-      "Guidance: state what improves for the user or operator, as an observable result — not a solution shape. Skipping this leaves reviewers unable to tell what success looks like before implementation starts.",
+      "Guidance: state what improves for the user or operator, as an observable result and explicit product fact — not a solution shape or implied narrative. Skipping this leaves reviewers unable to tell what success looks like before implementation starts.",
     guidingQuestion:
       "What does this change make possible that isn't possible today?",
     example:
@@ -25,7 +25,7 @@ export const SECTIONS = [
     key: "acceptanceCriteria",
     heading: "Acceptance Criteria",
     guidance:
-      "Guidance: each criterion needs a stable AC-<TOPIC>-<NNN> ID and must describe externally recognizable success, not a prose intention. Skipping this leaves downstream layers with nothing citable.",
+      "Guidance: each criterion needs a stable AC-<TOPIC>-<NNN> ID and must describe externally recognizable product success, not a prose intention or implementation proof requirement. Skipping this leaves downstream layers with nothing citable.",
     guidingQuestion:
       "How would a reviewer tell this criterion holds or not, without reading the implementation?",
     example:
@@ -35,7 +35,7 @@ export const SECTIONS = [
     key: "constraints",
     heading: "Constraints",
     guidance:
-      "Guidance: record product, policy, compatibility, rollout, or operational limits the solution must honor. Skipping this lets downstream layers invent limits or miss real ones.",
+      "Guidance: record product, policy, compatibility, rollout, or operational limits the solution must honor. Keep architecture, package layout, CLI behavior, schema internals, and delivery sequencing out of this section. Skipping this lets downstream layers invent limits or miss real ones.",
     guidingQuestion: "What must the solution respect no matter how it's built?",
     example:
       "Example: The PRD stays at product altitude and does not prescribe architecture, packages, CLI behavior, or execution sequencing.",
@@ -44,7 +44,7 @@ export const SECTIONS = [
     key: "assumptions",
     heading: "Assumptions",
     guidance:
-      "Guidance: record load-bearing beliefs that should be reviewed or tested. Skipping this hides risk that later surfaces as a silent surprise instead of a visible, revisitable assumption.",
+      "Guidance: record load-bearing beliefs that should be reviewed or tested, and keep their grounding visible — for example Inferred, Gap/default, or Conflict. Skipping this hides risk that later surfaces as a silent surprise instead of a visible, revisitable assumption.",
     guidingQuestion:
       "What are we taking on faith, and what would change if it turned out false?",
     example:
@@ -64,7 +64,7 @@ export const SECTIONS = [
     key: "downstreamCitationMap",
     heading: "Downstream Citation Map",
     guidance:
-      "Guidance: state exactly what downstream artifacts may cite (title, outcome, user job, AC IDs, constraints, assumptions, non-goals). Skipping this leaves citation rules implicit and easy to violate.",
+      "Guidance: state exactly what downstream artifacts may cite (title, outcome, user job, exact AC IDs, constraints, assumptions, non-goals) and preserve uncertainty as uncertainty. Skipping this leaves citation rules implicit and easy to violate.",
     guidingQuestion:
       "If a downstream tool could only cite a few facts from this PRD, which ones would keep it honest?",
     example:

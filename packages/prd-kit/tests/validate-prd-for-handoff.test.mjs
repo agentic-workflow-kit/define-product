@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { bootstrapTemplate } from "../src/bootstrap-template.mjs";
 import { validatePrdForHandoff } from "../src/validate-prd-for-handoff.mjs";
 
 const repoRoot = fileURLToPath(new URL("../../../", import.meta.url));
@@ -22,6 +23,21 @@ describe("validatePrdForHandoff", () => {
     );
     expect(result.valid).toBe(true);
     expect(result.errors).toEqual([]);
+  });
+
+  it("fails a placeholder-heavy bootstrap draft as not ready for handoff", () => {
+    const result = validatePrdForHandoff(
+      bootstrapTemplate({
+        productOutcome: "Owners can publish a trustworthy PRD.",
+      }),
+    );
+    expect(result.valid).toBe(false);
+    expect(result.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ token: "draft-placeholder-present" }),
+        expect.objectContaining({ token: "missing-acceptance-criteria-rows" }),
+      ]),
+    );
   });
 
   it("catches a missing required section even though the AC table (what there is of it) is fine", () => {
@@ -57,6 +73,48 @@ describe("validatePrdForHandoff", () => {
     expect(result.errors).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ token: "duplicate-ac-id", id: "AC-PRD-001" }),
+      ]),
+    );
+  });
+
+  it("fails when the Acceptance Criteria section exists but has no parseable criteria rows", () => {
+    const doc = [
+      "# Product PRD",
+      "",
+      "## Product Outcome",
+      "",
+      "Owners can publish a trustworthy PRD.",
+      "",
+      "## User Job",
+      "",
+      "As an owner, I need to capture intent before design starts.",
+      "",
+      "## Acceptance Criteria",
+      "",
+      "Still drafting these.",
+      "",
+      "## Constraints",
+      "",
+      "- Stays at product altitude.",
+      "",
+      "## Assumptions",
+      "",
+      "- Inferred: downstream layers cite stable AC IDs.",
+      "",
+      "## Non-Goals",
+      "",
+      "- Does not design the solution.",
+      "",
+      "## Downstream Citation Map",
+      "",
+      "- Downstream may cite the product outcome and exact AC IDs once published.",
+      "",
+    ].join("\n");
+    const result = validatePrdForHandoff(doc);
+    expect(result.valid).toBe(false);
+    expect(result.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ token: "missing-acceptance-criteria-rows" }),
       ]),
     );
   });

@@ -17,14 +17,14 @@ above and reviewed, not interrogated one by one.
 
 **Step 3 - Ground.** The owner answers: outcome is user trust/portability (not compliance-driven);
 format is "whatever's reasonable, no hard requirement yet." That second answer is recorded as a
-visible assumption ("no format constraint stated; downstream design chooses one") rather than asked
-further, because it does not change the PRD's meaning enough to block on.
+visible assumption (`Gap/default: no format constraint stated; downstream design chooses one`)
+rather than asked further, because it does not change the PRD's meaning enough to block on.
 
 **Step 4 - Draft.** `bootstrapTemplate` fills Product Outcome and User Job from the answers.
 Acceptance Criteria, Constraints, Non-Goals, and Downstream Citation Map are left as placeholders
 (guidance + guiding question + example) for the owner to complete or approve, since Step 2 stopped
 short of drafting checkable criteria the owner has not reviewed.
 
-**Step 5-7.** Deferred until the owner fills or approves the placeholder sections; `validateSections`
-currently passes (headings are present) but the PRD is not yet handed off - self-review would still
-flag the placeholder-only sections as work remaining.
+**Step 5-7.** Deferred until the owner fills or approves the placeholder sections; `validatePrdForHandoff`
+now fails while placeholder markers remain or until the Acceptance Criteria table contains real rows,
+so the draft cannot be handed off early by mistake.

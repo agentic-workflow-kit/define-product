@@ -138,3 +138,13 @@
 - **Consequence:** `docs/design/README.md` frontmatter `status: draft` -> `reviewed`. No design-content change.
 - **Design round:** not applied (README metadata only)
 - **Status:** applied
+
+## D-013 - Handoff validator must reject placeholder-ready PRDs
+
+- **Date:** 2026-07-01
+- **Suggestion:** Prior-art hardening review (`validatePrdForHandoff` claimed finished-handoff readiness while a bootstrap draft with placeholder sections or no real AC rows could still pass)
+- **Decision:** accepted
+- **Rationale:** define-product's outward seam is a durable, citable PRD. A draft that still carries template markers or no real acceptance criteria is not handoff-ready, even if section headings and AC-ID shape checks each pass in isolation.
+- **Consequence:** `packages/prd-kit` now treats placeholder markers and an AC-less Acceptance Criteria section as handoff-blocking findings, and the skill/docs point authors to the stricter combined validator rather than the looser partial checks.
+- **Design round:** not applied (check/design consistency hardening)
+- **Status:** applied

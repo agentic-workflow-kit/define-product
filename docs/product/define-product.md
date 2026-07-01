@@ -33,18 +33,18 @@ its own and that others — a teammate or a downstream tool — can cite by ID.
 
 ## Acceptance Criteria
 
-| ID              | Criterion                                                                                                                                                                                                           | Status |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| AC-ELICIT-001   | define-product asks only the questions that block a coherent PRD; it does not run an exhaustive interview when the supplied material already answers a section.                                                     | Active |
-| AC-ELICIT-002   | Every non-blocking unknown is recorded as a stated, reviewable assumption in the PRD rather than left silent or resolved without the owner's visibility.                                                            | Active |
-| AC-GROUND-001   | define-product distinguishes owner-supplied intent, inferred assumptions, unresolved gaps, and conflicting source material, and does not silently invent or resolve product facts without the owner's visibility.   | Active |
-| AC-PRD-001      | The output is a PRD that covers every required section of [`prd-contract.md`](./prd-contract.md): product outcome, user job, acceptance criteria, constraints, assumptions, non-goals, and downstream citation map. | Active |
-| AC-PRD-002      | The produced PRD is a durable, standalone artifact — it can be read and acted on without the session that produced it.                                                                                              | Active |
-| AC-ID-001       | Every acceptance criterion in a produced PRD carries a stable ID that follows the contract's ID format and stability rules, so downstream artifacts can cite it.                                                    | Active |
-| AC-CHECK-001    | Every acceptance criterion in a produced PRD describes externally recognizable success a reviewer can tell holds or not — not a prose intention.                                                                    | Active |
-| AC-TEMPLATE-001 | define-product offers a repeatable starting point covering every required contract section, as a default to adapt rather than a fixed form to obey.                                                                 | Active |
-| AC-GUIDE-001    | define-product surfaces guidance on why each section matters and the failure modes it prevents; the guidance is recommended, not enforced, and the tool does not block on ignoring it.                              | Active |
-| AC-SCOPE-001    | define-product keeps output at product altitude — it does not prescribe architecture, packages, CLI or command behavior, schemas, or execution sequencing, and it does not decide what to build for the owner.      | Active |
+| ID              | Criterion                                                                                                                                                                                                                                                                                                                       | Status |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| AC-ELICIT-001   | define-product asks only the questions that block a coherent PRD; it does not run an exhaustive interview when the supplied material already answers a section.                                                                                                                                                                 | Active |
+| AC-ELICIT-002   | Every non-blocking unknown is recorded as a stated, reviewable assumption or conflict in the PRD rather than left silent or resolved without the owner's visibility.                                                                                                                                                            | Active |
+| AC-GROUND-001   | define-product distinguishes owner-supplied intent, inferred assumptions, unresolved gaps/defaults, and conflicting source material, keeps that status visible in the artifact, and does not silently invent or resolve product facts without the owner's visibility.                                                           | Active |
+| AC-PRD-001      | The output is a PRD that covers every required section of [`prd-contract.md`](./prd-contract.md): product outcome, user job, acceptance criteria, constraints, assumptions, non-goals, and downstream citation map, with stable facts and visible uncertainty downstream tools can cite without the session that produced them. | Active |
+| AC-PRD-002      | The produced PRD is a durable, standalone artifact — it can be read and acted on without the session that produced it.                                                                                                                                                                                                          | Active |
+| AC-ID-001       | Every acceptance criterion in a produced PRD carries a stable ID that follows the contract's ID format and stability rules, so downstream artifacts can cite the exact published criterion rather than a local reinterpretation.                                                                                                | Active |
+| AC-CHECK-001    | Every acceptance criterion in a produced PRD describes externally recognizable product success a reviewer can tell holds or not — not a prose intention or an implementation proof requirement.                                                                                                                                 | Active |
+| AC-TEMPLATE-001 | define-product offers a repeatable starting point covering every required contract section, as a default to adapt rather than a fixed form to obey.                                                                                                                                                                             | Active |
+| AC-GUIDE-001    | define-product surfaces guidance on why each section matters and the failure modes it prevents; the guidance is recommended, not enforced, and the tool does not block on ignoring it.                                                                                                                                          | Active |
+| AC-SCOPE-001    | define-product keeps output at product altitude — it does not prescribe architecture, package layout, CLI or command behavior, schema internals, or delivery sequencing, and it does not decide what to build for the owner.                                                                                                    | Active |
 
 ## Constraints
 
@@ -52,7 +52,11 @@ its own and that others — a teammate or a downstream tool — can cite by ID.
   [`prd-contract.md`](./prd-contract.md). That contract is the owned cross-repo seam it produces to;
   changing the contract's shape is a separate, cross-repo event, not part of building this tool.
 - Produced PRDs stay at product altitude. The technical _how_ is decided downstream by Technical
-  Design and Planning.
+  Design and Planning, including architecture, package layout, CLI behavior, schema internals, and
+  delivery sequencing.
+- Produced PRDs keep product truth explicit: owner-supplied facts belong in their owning sections,
+  while inferred assumptions, remaining gaps/defaults, and source conflicts stay visibly labeled
+  rather than being flattened into settled fact prose.
 - define-product is an optional strong default: the suite accepts a product definition authored any
   other way, and define-product does not gate entry to design or delivery.
 - Human product judgment is a required input. define-product elicits and structures it; it does not
@@ -62,20 +66,24 @@ its own and that others — a teammate or a downstream tool — can cite by ID.
 
 ## Assumptions
 
-- Owners can supply enough intent — notes, a brief, existing docs, or answers to blocking questions —
-  for a coherent PRD to be drafted.
-- Downstream layers preserve product traceability by citing stable acceptance-criteria IDs rather
-  than re-reading Product-layer internals.
-- A product-altitude PRD, with no design mechanics, is enough for the design step to begin; richer
-  authoring tooling can be designed later without reopening these product decisions.
-- The required sections and ID rules in [`prd-contract.md`](./prd-contract.md) are stable enough to
-  author produced PRDs against.
+- Inferred: Owners can supply enough intent — notes, a brief, existing docs, or answers to blocking
+  questions — for a coherent PRD to be drafted.
+- Inferred: Downstream layers preserve product traceability by citing stable acceptance-criteria IDs
+  rather than re-reading Product-layer internals.
+- Gap/default: A product-altitude PRD, with no design mechanics, is enough for the design step to
+  begin; richer authoring tooling can be designed later without reopening these product decisions.
+- Inferred: The required sections and ID rules in [`prd-contract.md`](./prd-contract.md) are stable
+  enough to author produced PRDs against.
+- Inferred: At this layer, "evidence" means explicit, source-backed product claims plus clearly
+  labeled assumptions/conflicts and acceptance criteria a reviewer can judge, not implementation
+  proof instructions.
 
 ## Non-Goals
 
 - Designing or implementing the authoring runtime, CLI, skill package, schema, validator, or eval
   harness — the tool's concrete form and mechanics are design- and implementation-owned.
-- Deciding technical architecture, packages, or execution sequencing for the owner's product.
+- Deciding technical architecture, package layout, CLI behavior, schema internals, or delivery
+  sequencing for the owner's product.
 - Planning delivery decomposition or running execution — in the suite, those are `design-to-plan`
   and Jig.
 - Migrating legacy `workflow-kit` artifacts.
@@ -88,10 +96,12 @@ In the agentic-workflow-kit suite, Technical Design and Planning — and any oth
 this PRD — may cite:
 
 - this PRD's title and path;
-- the Product Outcome and User Job summaries;
+- the Product Outcome and User Job summaries where they state settled product facts;
 - acceptance-criteria IDs `AC-ELICIT-001`, `AC-ELICIT-002`, `AC-GROUND-001`, `AC-PRD-001`,
   `AC-PRD-002`, `AC-ID-001`, `AC-CHECK-001`, `AC-TEMPLATE-001`, `AC-GUIDE-001`, and `AC-SCOPE-001`;
-- the constraints, assumptions, and non-goals above.
+- the constraints, assumptions, non-goals, and any explicit conflict/uncertainty notes above.
 
 Downstream artifacts must not treat this PRD as a runtime contract, a design for the authoring tool,
-or authority to bypass the [`prd-contract.md`](./prd-contract.md) seam.
+or authority to bypass the [`prd-contract.md`](./prd-contract.md) seam. When an assumption or
+conflict matters downstream, it must be cited as an assumption or conflict — not promoted into
+settled fact.

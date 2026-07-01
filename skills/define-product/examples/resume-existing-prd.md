@@ -13,6 +13,10 @@ not a placeholder and not empty, so it is not silently overwritten: surface it t
 ("this criterion looks unfinished - keep, finish, or withdraw it?") and wait for a decision rather
 than guessing.
 
+If an existing assumption is already published as `Inferred:`, `Gap/default:`, or `Conflict:`, keep
+that status unless the owner explicitly resolves it; a resume pass must not silently promote it into
+settled fact.
+
 **Step 5.** Once the owner resolves the third criterion, re-run `validateAcIds` across the whole
 section (not just the new rows) - a resume pass can reintroduce a duplicate or malformed ID as
 easily as a fresh draft can.

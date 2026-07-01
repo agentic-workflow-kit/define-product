@@ -1,6 +1,6 @@
 ---
 name: define-product
-description: "Use when a product owner wants to turn intent - notes, a brief, existing docs, or answers in their head - into a durable, reviewable PRD with stable acceptance-criteria IDs. Asks only the questions that block a coherent PRD, records every non-blocking unknown as a visible assumption, validates the result against the PRD contract, and hands off a contract-conformant PRD plus one next-step recommendation. Does not decide architecture, packages, CLI behavior, or delivery sequencing."
+description: "Use when a product owner wants to turn intent - notes, a brief, existing docs, or answers in their head - into a durable, reviewable PRD with stable acceptance-criteria IDs. Asks only the questions that block a coherent PRD, records every non-blocking unknown as a visible assumption, validates the result against the PRD contract, and hands off a contract-conformant PRD plus one next-step recommendation. Does not decide architecture, package layout, CLI behavior, schema internals, or delivery sequencing."
 ---
 
 # define-product
@@ -47,7 +47,8 @@ instead of drafting from scratch.
 Read whatever the owner has already supplied - notes, a brief, an existing doc, prior answers - and
 any material they point to. For each required section
 (`SECTIONS` in `prd-kit`: Product Outcome, User Job, Acceptance Criteria, Constraints, Assumptions,
-Non-Goals, Downstream Citation Map), classify what you found as one of:
+Non-Goals, Downstream Citation Map), classify what you found as one of, and keep the source for that
+classification attached in your notes or draft:
 
 - **provided** - the material states it directly;
 - **inferred** - the material implies it but does not state it;
@@ -80,6 +81,12 @@ of silently resolving it. Never invent a product fact and present it as owner-su
 grounding the product layer requires (`AC-GROUND-001`): provided, inferred, gap, and conflict must
 stay distinguishable to the reader, not collapsed into uniform prose.
 
+Use explicit labels when needed, for example:
+
+- `Inferred:` when the owner's material implies something but does not state it.
+- `Gap/default:` when nothing in the material settles it and you are carrying a reviewable default.
+- `Conflict:` when two named sources disagree and the owner has not resolved it yet.
+
 ## Step 4 - Draft the PRD
 
 Call `bootstrapTemplate(inputs)` from `prd-kit` with whatever Steps 1-3 resolved, keyed by section:
@@ -90,18 +97,20 @@ than filled with invented content - the owner or a follow-up pass completes them
 
 The **Acceptance Criteria** section needs the owner's judgment on substance (what counts as
 recognizable success) even when its shape is templated - do not draft criteria the owner has not
-actually reviewed as their own.
+actually reviewed as their own. Product-altitude evidence here means explicit product claims a
+reviewer can judge, not test commands, package structure, schema internals, or delivery sequencing.
 
 ## Step 5 - Assign and validate acceptance-criteria IDs
 
 Assign each criterion a stable ID following `AC-<TOPIC>-<NNN>` (2-8 uppercase letters, zero-padded
 number starting at `001`, unique within the PRD). Then run `validatePrdForHandoff` against the
-draft - it runs the required-section check and the AC-ID check together, so a PRD missing a whole
-section cannot slip through just because its (nonexistent) AC table has nothing to flag:
+draft - it runs the required-section check and the AC-ID check together, and it rejects draft
+placeholder markers or an Acceptance Criteria section with no real criteria rows, so a PRD missing a
+whole section or still carrying template content cannot slip through as "finished":
 
 - if the result is not `valid`, **do not emit the PRD as finished** - surface the specific findings
-  from `result.errors` (missing sections, malformed/duplicate/invalid-status IDs) and fix them
-  before proceeding (**FAIL-002**);
+  from `result.errors` (missing sections, placeholder content, empty Acceptance Criteria, or
+  malformed/duplicate/invalid-status IDs) and fix them before proceeding (**FAIL-002**);
 - when editing an existing criterion, change the text in place only if the meaning is unchanged; if
   the meaning changes, mint a new ID and mark the old one `Superseded by AC-<new-id>` - never edit a
   cited ID's meaning silently (`INV-001`);
@@ -114,9 +123,13 @@ Before handoff:
 - **Guidance is recommended, never gating** (`AC-GUIDE-001`): surface the section guidance and
   guiding questions from `SECTIONS` to the owner for any section still thin, but do not block
   handoff on the owner acting on it.
-- **Altitude guard** (`INV-004`): scan the draft for architecture, package, CLI/command, schema, or
-  execution-sequencing content. If found, do not fold it into the PRD - name it explicitly to the
-  owner and redirect it to the design step (`design-technical-solution`) instead.
+- **Altitude guard** (`INV-004`): scan the draft for architecture, package layout, CLI/command
+  behavior, schema internals, or delivery-sequencing content. If found, do not fold it into the PRD
+  - name it explicitly to the owner and redirect it to the design step (`design-technical-solution`)
+    instead.
+- **Citation discipline**: make sure the Downstream Citation Map names exact stable facts and exact AC
+  IDs downstream may cite. If a downstream-relevant item is still an assumption or conflict, publish
+  it that way; do not quietly promote it into settled fact for the sake of a cleaner handoff.
 
 ## Step 7 - Hand off
 
@@ -128,7 +141,8 @@ Publish the validated PRD and exactly one next-step recommendation from:
   desirability rather than build complexity.
 
 Do not read or call any downstream layer's internals (`CTX-003`) - the PRD plus the recommendation is
-the entire handoff surface.
+the entire handoff surface. Downstream gets the published artifact, not the hidden reasoning or local
+implementation notes behind it.
 
 ## Step 8 - Resume or extend (idempotent)
 
@@ -137,4 +151,5 @@ existing PRD's current sections (treating already-filled sections as **provided*
 sections that are missing or still carry the `prd-kit` placeholder marker, and confirm with the
 owner before replacing any section that already has real content (**FAIL-003**). The PRD is the
 durable audit record (`OBS-001`) - resuming must not erase assumptions or citations a downstream
-artifact may already depend on.
+artifact may already depend on, or rewrite a published assumption/conflict into a settled fact
+without explicit owner confirmation.
