@@ -13,16 +13,19 @@ contract](./prd-contract.md); that contract is the seam define-product produces 
 this PRD designs.
 
 **Product identity.** define-product is an AI-assisted authoring tool that turns a product owner's
-intent into a PRD conforming to the acceptance-criteria-ID contract. Its concrete form — a skill, a
-CLI, a service, or an embedded flow — is a design decision, not a product one (see Non-Goals).
+intent into a clear, reviewable PRD. It is meant to be useful two ways: as a **standalone plugin**
+for anyone who needs a sharp product definition, and as the **Product layer** of the
+agentic-workflow-kit suite — in both cases producing a PRD that conforms to the
+[acceptance-criteria-ID contract](./prd-contract.md). Its concrete form — a skill, a CLI, a service,
+or an embedded flow — is a design decision, not a product one (see Non-Goals).
 
 ## Product Outcome
 
 A product owner can turn intent into a reviewable product definition — the product outcome, the user
-job, and recognizable success — before design or delivery decomposes the work, and can review that
-definition once, at the cheapest moment, instead of reconstructing it later from a diff. The
-definition's acceptance criteria carry stable IDs, so Technical Design and Planning preserve product
-intent by citation rather than re-interpretation.
+job, and recognizable success — and review it once, at the cheapest moment, instead of reconstructing
+it later from a diff. The definition's acceptance criteria carry stable IDs, so any later reader,
+tool, or teammate cites product intent by ID rather than re-interpreting it; in the
+agentic-workflow-kit suite, Technical Design and Planning cite those same IDs.
 
 ## User Job
 
@@ -30,7 +33,7 @@ A product owner with the judgment to say what a change should achieve needs that
 durable, structured PRD before any architecture or story decomposition. They have notes, a brief, or
 answers in their head — not a finished document — and they want the tool to draft what their material
 supports, ask only what it genuinely cannot proceed without, and produce a definition that stands on
-its own and that downstream layers can cite by ID.
+its own and that others — a teammate or a downstream tool — can cite by ID.
 
 ## Acceptance Criteria
 
@@ -76,14 +79,16 @@ its own and that downstream layers can cite by ID.
 - Designing or implementing the authoring runtime, CLI, skill package, schema, validator, or eval
   harness — the tool's concrete form and mechanics are design- and implementation-owned.
 - Deciding technical architecture, packages, or execution sequencing for the owner's product.
-- Planning delivery decomposition (that is `design-to-plan`) or running execution (that is Jig).
+- Planning delivery decomposition or running execution — in the suite, those are `design-to-plan`
+  and Jig.
 - Migrating legacy `workflow-kit` artifacts.
 - Guaranteeing the substance of an owner's criteria — define-product holds criteria to a checkable
   shape, but a careless author can still write one that passes vacuously.
 
 ## Downstream Citation Map
 
-Technical Design and Planning may cite:
+In the agentic-workflow-kit suite, Technical Design and Planning — and any other tool that consumes
+this PRD — may cite:
 
 - this PRD's title and path;
 - the Product Outcome and User Job summaries;

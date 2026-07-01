@@ -5,10 +5,11 @@ status: draft — product layer
 
 # define-product — product
 
-`define-product` is the **Product layer** at the head of the agentic-workflow-kit suite. It helps a
-product owner turn intent into a **PRD** — the _what_ and _why_ of a change — with stable, ID'd
-acceptance criteria — externally recognizable success checks — that every downstream layer
-references.
+`define-product` helps a product owner turn intent into a clear, reviewable **PRD** — the _what_ and
+_why_ of a change — with stable, ID'd acceptance criteria that make success externally recognizable
+and easy to cite. It stands on its own — a sharp PRD is worth having whether or not you use anything
+else — and it doubles as the **Product layer** at the head of the agentic-workflow-kit suite, where
+the downstream layers cite its acceptance-criteria IDs.
 
 This page is the **product overview** for `define-product`: who it serves, what job it does, where
 its boundaries are, and how you can tell it is working. The authoritative product definition — the
@@ -20,16 +21,23 @@ work, see [`../design/`](../design/) (future work).
 
 ## Product Spine
 
-| Question            | Product answer                                                                                                                                                  |
-| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| User                | A product owner with the judgment to say what a change should achieve, who needs that intent captured before design or delivery begins.                         |
-| Job                 | Turn that intent into a reviewable product definition — outcome, user job, recognizable success — with stable, ID'd acceptance criteria downstream layers cite. |
-| Current alternative | A vague brief, a ticket, or straight-to-code, with the real product definition reconstructed later from the diff, if at all.                                    |
-| Before              | Downstream cannot tell what success means or trace it; ambiguity compounds into a faithful build of the wrong thing.                                            |
-| After               | Outcome, audience, and success are stated once, at the cheapest moment to review, as criteria downstream layers cite by stable ID.                              |
-| Non-fit             | Not a design or architecture tool, a delivery planner, a project manager, or a substitute for the owner's product judgment.                                     |
+| Question            | Product answer                                                                                                                                           |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User                | A product owner with the judgment to say what a change should achieve, who needs that intent captured before design or delivery begins.                  |
+| Job                 | Turn that intent into a reviewable product definition — outcome, user job, recognizable success — with stable, ID'd acceptance criteria others can cite. |
+| Current alternative | A vague brief, a ticket, or straight-to-code, with the real product definition reconstructed later from the diff, if at all.                             |
+| Before              | Whoever builds it cannot tell what success means or trace it; ambiguity compounds into a faithful build of the wrong thing.                              |
+| After               | Outcome, audience, and success are stated once, at the cheapest moment to review, as criteria others can cite by stable ID.                              |
+| Non-fit             | Not a design or architecture tool, a delivery planner, a project manager, or a substitute for the owner's product judgment.                              |
 
-## Where it sits
+## Standalone, and in the suite
+
+Use `define-product` on its own whenever you need a product definition you can stand behind: it
+produces a durable PRD with recognizable, citable acceptance criteria and needs nothing else to be
+useful.
+
+It is also the first stage of the agentic-workflow-kit suite, where the later layers cite its
+acceptance-criteria IDs:
 
 ```text
 define-product  ->  technical-design  ->  design-to-plan  ->  jig (run)  ->  learning loop
@@ -41,23 +49,24 @@ define-product  ->  technical-design  ->  design-to-plan  ->  jig (run)  ->  lea
   work to product intent; they must not read Product-layer internals.
 - **jig** ultimately checks, at merge-on-evidence, the criteria that trace back to those IDs.
 
-The upstream position is a strong default, not a gate: bring your own PRD and the suite accepts it at
-any stage. `define-product`'s only outward contract is the [PRD / acceptance-criteria-ID
-format](./prd-contract.md).
+Even inside the suite, the upstream position is a strong default, not a gate: bring your own PRD and
+the suite accepts it at any stage. Either way, `define-product`'s only outward contract is the [PRD /
+acceptance-criteria-ID format](./prd-contract.md).
 
 ## Why it matters
 
-Everything downstream inherits the PRD's clarity. A vague product definition does not stop the work —
-it produces a faithful build of the wrong thing: design inherits the ambiguity, planning decomposes
-the ambiguous design, and Jig faithfully executes a well-structured plan in the wrong direction. By
-then the mistake is expensive.
+Everything built from a PRD inherits its clarity. A vague product definition does not stop the work —
+it produces a faithful build of the wrong thing: whoever designs, plans, and builds it inherits the
+ambiguity and carries a well-structured effort in the wrong direction. (In the suite that chain is
+technical-design, planning, and Jig — but the failure is the same on any team.) By then the mistake
+is expensive.
 
 The most common delivery failure is not a broken build; it is a correct build of a misunderstood
 goal. `define-product` addresses that at the source — before any architecture or story decomposition
 — by making the owner state the outcome, the audience, and recognizable success once, at the cheapest
 possible moment to review it. **The evidence thread starts here:** the ID'd acceptance criteria
-written now are the same criteria design and planning carry forward and Jig's gates eventually
-evaluate.
+written now are what everything downstream is checked against — and in the suite, the same criteria
+design and planning carry forward and Jig's gates eventually evaluate.
 
 ## What it does
 
@@ -109,10 +118,10 @@ Honest edges — deliberate non-goals and deferrals, not gaps. The
 
 **Success looks like:**
 
-- An owner states the product outcome and success once, and downstream layers cite it by stable ID.
-- Design and planning reconcile to the PRD without reading Product-layer internals.
-- Scope is bounded — constraints, assumptions, and non-goals stated — so downstream layers do not
-  invent it.
+- An owner states the product outcome and success once, and others cite it by stable ID instead of
+  guessing.
+- Whoever designs and plans the work reconciles to the PRD without reading Product-layer internals.
+- Scope is bounded — constraints, assumptions, and non-goals stated — so no one downstream invents it.
 
 **Counter-signals look like:**
 
