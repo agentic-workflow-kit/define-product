@@ -22,9 +22,9 @@ describe("index.mjs public exports", () => {
     // required heading, filled or placeholder, so this passes even with partial input.
     expect(validateSections(doc).valid).toBe(true);
     expect(validateAcIds(doc).valid).toBe(true);
-    // validatePrdForHandoff combines both checks and agrees on this doc — it earns its keep on
-    // the cases in validate-prd-for-handoff.test.mjs where sections and AC-IDs disagree, not here.
-    expect(validatePrdForHandoff(doc).valid).toBe(true);
+    // validatePrdForHandoff is stricter: a placeholder-heavy draft is not ready for handoff even
+    // though section presence and AC-ID shape each pass on their own.
+    expect(validatePrdForHandoff(doc).valid).toBe(false);
     expect(validatePrdForHandoff(doc).sections.valid).toBe(true);
     expect(validatePrdForHandoff(doc).acIds.valid).toBe(true);
   });

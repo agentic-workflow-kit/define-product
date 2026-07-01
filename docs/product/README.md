@@ -74,9 +74,13 @@ carry those criteria forward into the execution plan, whose checks Jig's gates e
 - **Produces the PRD.** A durable, structured artifact stating the product outcome, user job, ID'd
   acceptance criteria, constraints, assumptions, and non-goals — one that stands alone without the
   session that produced it.
+- **Keeps grounding visible.** Owner-supplied facts, inferred assumptions, unresolved gaps, and
+  conflicting source material stay distinguishable in the artifact, so reviewable uncertainty is not
+  laundered into settled product truth.
 - **Makes criteria checkable.** Acceptance criteria are ID'd for stable downstream citation and
-  describe externally recognizable success, so a reviewer can tell whether they hold rather than
-  parse prose intentions. The [PRD contract](./prd-contract.md) is the authority on that format.
+  describe externally recognizable product success, so a reviewer can tell whether they hold rather
+  than parse prose intentions or implementation proof requirements. The [PRD
+  contract](./prd-contract.md) is the authority on that format.
 
 The authoritative, ID'd requirements behind these behaviors are the acceptance criteria in the
 [PRD](./define-product.md#acceptance-criteria).
@@ -91,13 +95,25 @@ not require this one.
 ## Product Boundaries
 
 Product owns outcomes, user jobs, constraints, assumptions, non-goals, and acceptance criteria. It
-does not prescribe architecture, packages, CLI behavior, schemas, or execution sequencing — those are
-design- and delivery-owned.
+does not prescribe architecture, package layout, CLI behavior, schema internals, or delivery
+sequencing — those are design- and delivery-owned.
 
 Downstream layers cite acceptance-criteria IDs and the published contract; they must not depend on
 Product-layer prose ordering, future tooling, or local implementation details. The [PRD
 contract](./prd-contract.md) states the full citation rules and the ID stability and supersession
 model, and the PRD's [Constraints](./define-product.md#constraints) are the authoritative list.
+
+## Evidence at Product Altitude
+
+At this layer, "evidence" means explicit product claims and recognizable success, not implementation
+proof. A strong PRD:
+
+- states provided facts plainly, instead of implying them through narrative;
+- records inferred assumptions, remaining gaps/defaults, and source conflicts as such, instead of
+  flattening them into fact prose;
+- writes acceptance criteria so a reviewer can judge the product claim from the artifact or the
+  resulting user-visible behavior, without reading package structure, schemas, commands, or test
+  lanes.
 
 ## What define-product isn't (yet)
 
@@ -125,6 +141,8 @@ Honest edges — deliberate non-goals and deferrals, not gaps. The
 **Counter-signals look like:**
 
 - PRDs restate design or prescribe architecture instead of staying at product altitude.
+- PRDs quietly promote inferred or conflicting material into settled fact with no visible assumption
+  or conflict note.
 - Acceptance criteria read as prose intentions rather than externally recognizable success.
 - A downstream artifact reinterprets an acceptance-criteria ID locally instead of citing its
   published meaning.

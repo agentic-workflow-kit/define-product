@@ -86,5 +86,5 @@ export function validateAcIds(markdown) {
     if (statusError) errors.push(statusError);
   }
 
-  return { valid: errors.length === 0, errors };
+  return { valid: errors.length === 0, errors, rowCount: rows.length };
 }

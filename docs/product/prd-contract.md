@@ -36,6 +36,10 @@ observable result, not as a solution shape.
 The user job names who benefits and what they are trying to do. It can include context, triggers,
 and friction, but it must not prescribe technical architecture or execution sequencing.
 
+When source material is incomplete or contradictory, these sections should publish only settled
+product facts. Anything merely inferred, still missing, or in conflict belongs in Assumptions as
+such, not flattened into fact prose.
+
 ## Acceptance Criteria
 
 Acceptance criteria are product-owned success checks. They must be:
@@ -44,7 +48,13 @@ Acceptance criteria are product-owned success checks. They must be:
 - traceable to the product outcome or user job;
 - written without requiring a specific implementation package, CLI command, design pattern, or
   delivery plan;
+- explicit enough that a reviewer can judge the product claim from the artifact or resulting
+  user-visible behavior, not from a hidden implementation proof;
 - stable enough for downstream citation.
+
+This is "evidence over prose" at product altitude: a criterion must say what recognizable success
+looks like, but it must not collapse into test IDs, schema internals, package layout, or delivery
+instructions.
 
 ### ID Format
 
@@ -90,6 +100,9 @@ condition.
 
 Assumptions are load-bearing beliefs. Each assumption should be reviewable, testable, or disposable.
 If disproven, it should be clear which outcome, criterion, constraint, or non-goal must be revisited.
+They should also preserve grounding status clearly enough that a downstream reader can tell whether
+an item is an inference, a remaining gap/default, or a live conflict between sources. Do not restate
+provided facts here just to duplicate them.
 
 ## Non-Goals
 
@@ -106,10 +119,15 @@ Technical Design and Planning may cite:
 - constraints, assumptions, and non-goals;
 - supersession or withdrawal state for an acceptance-criteria ID.
 
+When they cite assumptions or conflicts, they must preserve that status; an assumption is not a
+settled fact just because it was published.
+
 Technical Design and Planning must not depend on:
 
 - Product-layer implementation internals;
 - future Product-layer workflow mechanics, CLIs, schemas, validators, skills, or evals;
+- product documents as authority for architecture, package layout, CLI behavior, schema internals,
+  or delivery sequencing;
 - prose ordering outside the required sections;
 - unpublished scratch notes or local-only artifacts;
 - acceptance-criteria IDs whose meaning they reinterpret locally.

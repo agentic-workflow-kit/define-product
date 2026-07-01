@@ -14,17 +14,19 @@ material already answers it.
 
 **Step 3 - Ground.** The inferred acceptance criteria are drafted from the brief's described behavior
 and shown to the owner as a proposed checkable form, not silently finalized. No conflicts found. The
-Constraints and Assumptions gaps are recorded as visible assumptions ("no explicit constraint stated;
-assuming none beyond the stated non-goals").
+Constraints and Assumptions gaps are recorded as visible assumptions (`Gap/default: no explicit
+constraint stated; assuming none beyond the stated non-goals`).
 
 **Step 4 - Draft.** `bootstrapTemplate` fills Product Outcome, User Job, and Non-Goals verbatim from
 the brief; Acceptance Criteria and the two gap sections are filled with the grounded content from
 Step 3 (not left as placeholders, since Step 3 resolved them).
 
 **Step 5 - IDs and validation.** Four criteria assigned `AC-<TOPIC>-001..004`. `validateSections` and
-`validateAcIds` both pass.
+`validateAcIds` both pass, and `validatePrdForHandoff` passes because no placeholders remain and the
+Acceptance Criteria section contains real criteria rows.
 
 **Step 6 - Self-review.** No architecture/CLI/schema content found in the draft; nothing to redirect.
 
 **Step 7 - Handoff.** The brief mentions a new external API integration - recommend
-`design-technical-solution` next.
+`design-technical-solution` next. The Downstream Citation Map cites only the published product
+outcome, user job, exact AC IDs, and the visible assumptions above.
