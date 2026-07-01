@@ -1,6 +1,6 @@
 ---
 title: define-product — design
-status: draft
+status: reviewed
 ---
 
 # define-product — design

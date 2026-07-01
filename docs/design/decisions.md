@@ -128,3 +128,13 @@
 - **Consequence:** No new change; resolved by D-006. Thread resolved with a reply.
 - **Design round:** not applied (resolved by D-006)
 - **Status:** applied
+
+## D-012 - Design hub README status draft -> reviewed
+
+- **Date:** 2026-07-01
+- **Suggestion:** Rereview (non-blocking - metadata neatness: `docs/design/README.md` still said `status: draft` while the handoff-bearing design is `reviewed`)
+- **Decision:** accepted
+- **Rationale:** Align the hub README metadata with the reviewed design doc; avoids a stale status signal.
+- **Consequence:** `docs/design/README.md` frontmatter `status: draft` -> `reviewed`. No design-content change.
+- **Design round:** not applied (README metadata only)
+- **Status:** applied
