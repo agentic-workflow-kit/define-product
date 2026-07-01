@@ -7,9 +7,7 @@ status: draft — product layer
 
 `define-product` helps a product owner turn intent into a clear, reviewable **PRD** — the _what_ and
 _why_ of a change — with stable, ID'd acceptance criteria that make success externally recognizable
-and easy to cite. It stands on its own — a sharp PRD is worth having whether or not you use anything
-else — and it doubles as the **Product layer** at the head of the agentic-workflow-kit suite, where
-the downstream layers cite its acceptance-criteria IDs.
+and easy to cite. It stands on its own as a standalone tool or independent plugin — a sharp PRD is worth having whether or not you use anything else — and it doubles as the **Product layer** at the head of the agentic-workflow-kit suite, where the downstream layers cite its acceptance-criteria IDs.
 
 This page is the **product overview** for `define-product`: who it serves, what job it does, where
 its boundaries are, and how you can tell it is working. The authoritative product definition — the
