@@ -47,7 +47,8 @@ define-product  ->  technical-design  ->  design-to-plan  ->  jig (run)  ->  lea
   non-goals, and ID'd acceptance criteria.
 - **technical-design** and **design-to-plan** may cite acceptance-criteria IDs when reconciling their
   work to product intent; they must not read Product-layer internals.
-- **jig** ultimately checks, at merge-on-evidence, the criteria that trace back to those IDs.
+- **jig** lands work only on evidence, checked against execution-plan conditions that trace back to
+  those product ACs.
 
 Even inside the suite, the upstream position is a strong default, not a gate: bring your own PRD and
 the suite accepts it at any stage. Either way, `define-product`'s only outward contract is the [PRD /
@@ -65,8 +66,8 @@ The most common delivery failure is not a broken build; it is a correct build of
 goal. `define-product` addresses that at the source — before any architecture or story decomposition
 — by making the owner state the outcome, the audience, and recognizable success once, at the cheapest
 possible moment to review it. **The evidence thread starts here:** the ID'd acceptance criteria
-written now are what everything downstream is checked against — and in the suite, the same criteria
-design and planning carry forward and Jig's gates eventually evaluate.
+written now are what everything downstream is checked against — and in the suite, design and planning
+carry those criteria forward into the execution plan, whose checks Jig's gates evaluate on evidence.
 
 ## What it does
 

@@ -13,8 +13,8 @@ contract](./prd-contract.md); that contract is the seam define-product produces 
 this PRD designs.
 
 **Product identity.** define-product is an AI-assisted authoring tool that turns a product owner's
-intent into a clear, reviewable PRD. It is meant to be useful two ways: as a **standalone plugin**
-for anyone who needs a sharp product definition, and as the **Product layer** of the
+intent into a clear, reviewable PRD. It is meant to be useful two ways: **on its own**, for anyone
+who needs a sharp product definition, and as the **Product layer** of the
 agentic-workflow-kit suite — in both cases producing a PRD that conforms to the
 [acceptance-criteria-ID contract](./prd-contract.md). Its concrete form — a skill, a CLI, a service,
 or an embedded flow — is a design decision, not a product one (see Non-Goals).
@@ -41,6 +41,7 @@ its own and that others — a teammate or a downstream tool — can cite by ID.
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
 | AC-ELICIT-001   | define-product asks only the questions that block a coherent PRD; it does not run an exhaustive interview when the supplied material already answers a section.                                                     | Active |
 | AC-ELICIT-002   | Every non-blocking unknown is recorded as a stated, reviewable assumption in the PRD rather than left silent or resolved without the owner's visibility.                                                            | Active |
+| AC-GROUND-001   | define-product distinguishes owner-supplied intent, inferred assumptions, unresolved gaps, and conflicting source material, and does not silently invent or resolve product facts without the owner's visibility.   | Active |
 | AC-PRD-001      | The output is a PRD that covers every required section of [`prd-contract.md`](./prd-contract.md): product outcome, user job, acceptance criteria, constraints, assumptions, non-goals, and downstream citation map. | Active |
 | AC-PRD-002      | The produced PRD is a durable, standalone artifact — it can be read and acted on without the session that produced it.                                                                                              | Active |
 | AC-ID-001       | Every acceptance criterion in a produced PRD carries a stable ID that follows the contract's ID format and stability rules, so downstream artifacts can cite it.                                                    | Active |
@@ -92,8 +93,8 @@ this PRD — may cite:
 
 - this PRD's title and path;
 - the Product Outcome and User Job summaries;
-- acceptance-criteria IDs `AC-ELICIT-001`, `AC-ELICIT-002`, `AC-PRD-001`, `AC-PRD-002`, `AC-ID-001`,
-  `AC-CHECK-001`, `AC-TEMPLATE-001`, `AC-GUIDE-001`, and `AC-SCOPE-001`;
+- acceptance-criteria IDs `AC-ELICIT-001`, `AC-ELICIT-002`, `AC-GROUND-001`, `AC-PRD-001`,
+  `AC-PRD-002`, `AC-ID-001`, `AC-CHECK-001`, `AC-TEMPLATE-001`, `AC-GUIDE-001`, and `AC-SCOPE-001`;
 - the constraints, assumptions, and non-goals above.
 
 Downstream artifacts must not treat this PRD as a runtime contract, a design for the authoring tool,
