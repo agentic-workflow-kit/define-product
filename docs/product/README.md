@@ -16,8 +16,8 @@ its boundaries are, and how you can tell it is working. The authoritative produc
 ID'd requirements, acceptance criteria, constraints, assumptions, and non-goals the design step
 reconciles to — is the [PRD](./define-product.md). Product owns _what and why_; design and delivery
 own _how_. For the artifact _format_ this layer produces, see [`prd-contract.md`](./prd-contract.md)
-and the [minimal example](./examples/minimal-prd.md); for _how_ future Product-layer mechanics will
-work, see [`../design/`](../design/) (future work).
+and the [minimal example](./examples/minimal-prd.md); for _how_ those mechanics are designed, see
+[`../design/`](../design/).
 
 ## Product Spine
 
@@ -107,7 +107,7 @@ Honest edges — deliberate non-goals and deferrals, not gaps. The
 [PRD](./define-product.md#non-goals) carries the authoritative non-goals:
 
 - **Not a validator, CLI, skill runtime, or eval framework.** The contract is documentation today;
-  mechanics are design-owned and future work.
+  the mechanics are now specified in [`../design/`](../design/), and building them is future work.
 - **It does not decide what to build.** The owner's product judgment is the required input;
   `define-product` makes it explicit and durable — it amplifies judgment, it does not supply it.
 - **It does not guarantee good criteria.** It holds acceptance criteria to a _shape_ — ID'd,
@@ -141,10 +141,10 @@ Honest edges — deliberate non-goals and deferrals, not gaps. The
 
 ## Status
 
-Seeded for M3, with the product now defined for its own design step. The overview above, the
+Seeded for M3, with the product defined and its design step now taken. The overview above, the
 [PRD](./define-product.md) (requirements and ID'd acceptance criteria), and the outward
-[acceptance-criteria-ID contract](./prd-contract.md) are defined; design mechanics, schemas, skills,
-and runtime are future work derived from these product docs.
+[acceptance-criteria-ID contract](./prd-contract.md) are defined; the [design layer](../design/)
+derives the mechanics from them, and the skills and runtime it commits to are future build work.
 
 ## Related
 
@@ -153,8 +153,8 @@ and runtime are future work derived from these product docs.
 - [`prd-contract.md`](./prd-contract.md) — the outward contract (PRD / acceptance-criteria-ID format)
   downstream layers cite.
 - [`examples/minimal-prd.md`](./examples/minimal-prd.md) — a concrete PRD using the contract.
-- [`../design/`](../design/) — how future Product-layer mechanics will work (future; the next step in
-  this repo).
+- [`../design/`](../design/) — how the Product-layer mechanics are designed (the technical design
+  derived from this PRD).
 
 > **Provenance.** This product layer productizes the v0.7 `agentic-workflow-kit:define-product` skill
 > and draws on the retiring `workflow-kit` prototype. Both are reference-only; this repo is the
